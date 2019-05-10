@@ -1,5 +1,7 @@
 pipeline {
-  agent none
+  agent {
+      label 'linux && amd64 && docker'
+  }
   parameters {
     booleanParam(name: "push", defaultValue: false)
   }
@@ -9,9 +11,6 @@ pipeline {
     ansiColor('xterm')
   }
   stages {
-    agent {
-        label 'linux && amd64 && docker'
-    }
     stage('build') {
       steps {
         sh 'docker build -t docker/binfmt:${GIT_COMMIT} .'
